@@ -13,6 +13,8 @@ class FeedbackUseCases
         $feedback = Feedback::make();
         $feedback->title = $data->title;
         $feedback->description = $data->description;
+        $feedback->service = $data->service;
+        $feedback->rating = $data->rating;
         $feedback->datetime = $data->datetime->format('Y-m-d H:i:s');
         $feedback->save();
         $feedback->refresh();

@@ -9,6 +9,8 @@
             <div v-if="feedback.isLoaded" class="flex flex-col">
                 <h1 class="text-3xl font-medium text-gray-500">{{ feedback.title }}</h1>
                 <p class="text-sm text-gray-400">{{ datetime }}</p>
+                <p class="text-sm text-gray-400">Сервис: {{ feedback.service }}</p>
+                <p class="text-sm text-gray-400">Оценка: {{ feedback.rating }}</p>
                 <p class="text-base mt-2 text-gray-500">{{ feedback.description }}</p>
             </div>
             <div>
@@ -43,12 +45,14 @@ const idFromRouter = useRoute().params.id
 const feedback = reactive({
     title: '',
     description: '',
+    service: '',
+    rating: 0,
     datetime: '',
     isLoaded: false
 });
 
 const datetime = computed(() => {
-    return new Date(Number(feedback.datetime)).toLocaleString()
+    return new Date(Number(feedback.datetime) * 1000).toLocaleString()
 })
 
 onBeforeMount(() => {
@@ -57,6 +61,8 @@ onBeforeMount(() => {
             const feedbackResponseData = feedbackResponse.data;
             feedback.title = feedbackResponseData.title;
             feedback.description = feedbackResponseData.description;
+            feedback.service = feedbackResponseData.service;
+            feedback.rating = feedbackResponseData.rating;
             feedback.datetime = feedbackResponseData.datetime;
             feedback.isLoaded = true;
         }).catch(error => {
@@ -67,6 +73,8 @@ onBeforeMount(() => {
 interface FeedbackResponse {
     title: string;
     description: string;
+    service: string;
+    rating: number;
     datetime: string;
 }
 </script>

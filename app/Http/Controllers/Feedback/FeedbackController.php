@@ -15,10 +15,11 @@ class FeedbackController extends Controller
     public function store(FeedbackStoreRequest $request): JsonResponse
     {
         $data = $request->validated();
-
         $feedback = app(FeedbackUseCases::class)->acceptFeedback(new AcceptFeedbackData(
             title: $data['title'],
             description: $data['description'],
+            service: $data['service'],
+            rating: $data['rating'],
             datetime: $this->convertTimestampToDT($data['datetime']),
         ));
 
@@ -32,6 +33,8 @@ class FeedbackController extends Controller
         return response()->json([
             'title' => $feedback->title,
             'description' => $feedback->description,
+            'service' => $feedback->service,
+            'rating' => $feedback->rating,
             'datetime' => DateTime::createFromFormat('Y-m-d H:i:s', $feedback->datetime)->getTimestamp()
         ]);
     }

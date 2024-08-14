@@ -16,6 +16,8 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $title
+ * @property string $service
+ * @property number $rating
  * @property string $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -28,6 +30,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Feedback whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Feedback whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Feedback whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Feedback whereService($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Feedback whereRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Feedback whereUpdatedAt($value)
  */
 	class Feedback extends \Eloquent {}

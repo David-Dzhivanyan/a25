@@ -16,6 +16,8 @@ class FeedbackStoreRequest extends FormRequest
         return [
             'title' => 'required|string',
             'description' => 'required|string',
+            'service' => 'required|string',
+            'rating' => 'required|int',
             'datetime' => 'required|int'
         ];
     }

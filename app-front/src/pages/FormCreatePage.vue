@@ -12,8 +12,21 @@
                 focus-visible:outline-brand-2 outline-2
             " type="text" v-model="data.title">
             </label>
-            
+
             <input v-model="data.datetime" type="datetime-local" />
+
+            <label class="flex flex-col gap-y-0.5 text-gray-500 focus-within:text-brand-2">
+                <span class="text-lg">Сервис</span>
+                <select name="service" v-model="data.service">
+                    <option value="Store">Магазин</option>
+                    <option value="Shipping">Доставка</option>
+                    <option value="App">Приложение</option>
+                </select>
+            </label>
+
+            <div>
+                <StarsRating v-model="data.rating" name="feedback"/>
+            </div>
 
             <label class="flex flex-col gap-y-0.5 text-gray-500 focus-within:text-brand-2">
                 <span class="text-lg">Описание</span>
@@ -38,10 +51,13 @@ import { reactive } from 'vue';
 import axios from 'axios';
 import env from '@/env.json'
 import router from '@/router';
+import StarsRating from "@/components/StarsRating.vue";
 
 const data = reactive({
     description: '',
     title: '',
+    service: '',
+    rating: 0,
     datetime: '',
 });
 
@@ -60,6 +76,8 @@ const sendFormImpl = async () => {
     return await axios.post<StoreFeedbackResponse>(env.backend_url + '/feedbacks', {
         'description': data.description,
         'title': data.title,
+        'service': data.service,
+        'rating': data.rating,
         'datetime':  new Date(data.datetime).getTime()
     });
 }

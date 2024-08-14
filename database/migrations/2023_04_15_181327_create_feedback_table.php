@@ -11,6 +11,8 @@ return new class extends Migration
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('service');
+            $table->integer('rating');
             $table->text('description');
             $table->timestamps();
         });
